@@ -170,24 +170,22 @@ question_username() {
 
 question_username
 
-write_log() {
-  msg="[GIT] $1"
-  echo $msg >>install-workstation-log.txt
-  echo $msg
+write_log_git() {
+  write_log "[GIT] $1"
 }
 
-write_log "Configurando Git com os dados informados"
+write_log_git "Configurando Git com os dados informados"
 git config --global user.name "$name"
 git config --global user.email "$email"
 git config --global user.username "$user_name"
 
-write_log "Definindo a branch default 'main'"
+write_log_git "Definindo a branch default 'main'"
 git config --global init.defaultBranch main
 
-write_log "Definindo vscode como editor padrão do git"
+write_log_git "Definindo vscode como editor padrão do git"
 git config --global core.editor "code --wait"
 
-write_log "Definindo vscode como difftool padrão do git"
+write_log_git "Definindo vscode como difftool padrão do git"
 git config --global diff.tool "vscode"
 git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
 

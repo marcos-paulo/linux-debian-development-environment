@@ -1,4 +1,11 @@
 #!/bin/bash
+
+write_log() {
+  msg="$1"
+  echo $msg >>install-workstation-log.txt
+  echo $msg
+}
+
 source ./sources/cores.sh
 source ./sources/ansi-functions.sh
 echo >install-workstation-log.txt
@@ -24,3 +31,5 @@ echo status install JetBrainsMono $? >>install-workstation-log.txt
 echo >>install-workstation-log.txt
 
 source sources/git-install.sh
+
+source sources/docker_install.sh

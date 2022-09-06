@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo apt install git -y
 echo status install git $? >>install-workstation-log.txt
 echo >>install-workstation-log.txt
@@ -5,6 +6,10 @@ echo >>install-workstation-log.txt
 # $1 texto que deve ser impresso como erro
 print_error() {
   printf "$1"
+}
+
+write_log_git() {
+  write_log "[GIT] $1"
 }
 
 # $1 string que vai ser testada
@@ -15,7 +20,7 @@ match_regex() {
 }
 
 question_name() {
-  while create_field "Informe o seu nome"; do
+  while create_field "[GIT] Informe o seu nome"; do
     match_regex "$field" "^[0-9a-zA-Z\s-_.@]{3,}$"
     [[ $? -eq 1 ]] && { # se verdadeiro atribua $field ao $name
       name=$field
@@ -27,7 +32,7 @@ question_name() {
     up_one_line # não passou na validação suba uma linha
   done
 
-  confirm_question "O nome \033[34m$name\033[0m está correto?"
+  confirm_question "[GIT] O nome \033[34m$name\033[0m está correto?"
   [ $? -eq 0 ] && {
     # Se a resposta foi n|N vai retornar 0 quer dizer que o nome está incorreto
     # logo aqui será implementado o comportamento para repetir a questão.
@@ -38,10 +43,8 @@ question_name() {
 
 }
 
-question_name
-
 question_email() {
-  while create_field "Informe o seu e-mail"; do
+  while create_field "[GIT] Informe o seu e-mail"; do
     match_regex "$field" "^[a-z0-9._-]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$"
     [[ $? -eq 1 ]] && { # se verdadeiro atribua $field ao $email
       email=$field
@@ -53,7 +56,7 @@ question_email() {
     up_one_line # não passou na validação suba uma linha
   done
 
-  confirm_question "O e-mail \033[34m$email\033[0m está correto?"
+  confirm_question "[GIT] O e-mail \033[34m$email\033[0m está correto?"
   [ $? -eq 0 ] && {
     # zero quer dizer que o email está incorreto logo aqui será implementado o
     # comportamento para repetir a questão
@@ -63,11 +66,9 @@ question_email() {
   }
 }
 
-question_email
-
 question_email_is_username() {
   # questiona se o email já digitado será o user.name do git hub
-  confirm_question "O e-mail \033[34m$email\033[0m é o seu usuario do GitHub?"
+  confirm_question "[GIT] O e-mail \033[34m$email\033[0m é o seu usuario do GitHub?"
   [ $? -eq 1 ] &&
     # 1 = y|Y entao atribue o e-mail ao usuário do GitHub
     user_name=$email ||
@@ -75,10 +76,8 @@ question_email_is_username() {
     break_line
 }
 
-question_email_is_username
-
 question_username() {
-  string_question_username="Informe o seu nome de usuário GitHub"
+  string_question_username="[GIT] Informe o seu nome de usuário GitHub"
   [ -z $user_name ] && {
     while create_field "$string_question_username"; do
       match_regex "$field" "^[0-9a-z-_@.]{3,}$"
@@ -95,7 +94,7 @@ question_username() {
     create_label "$string_question_username" "$user_name"
   }
 
-  confirm_question "O nome de usuário GitHub ${AZUL}${user_name}${NORMAL} está correto?"
+  confirm_question "[GIT] O nome de usuário GitHub ${AZUL}${user_name}${NORMAL} está correto?"
   [ $? -eq 0 ] && {
     # zero quer dizer que o usuário está incorreto logo aqui será implementado
     # o comportamento para repetir question_username
@@ -107,25 +106,37 @@ question_username() {
   }
 }
 
-question_username
+set_configurations_git() {
+  write_log_git "Configurando Git com os dados informados"
+  git config --global user.name "$name"
+  git config --global user.email "$email"
+  git config --global user.username "$user_name"
 
-write_log_git() {
-  write_log "[GIT] $1"
+  write_log_git "Definindo a branch default 'main'"
+  git config --global init.defaultBranch main
+
+  write_log_git "Definindo vscode como editor padrão do git"
+  git config --global core.editor "code --wait"
+
+  write_log_git "Definindo vscode como difftool padrão do git"
+  git config --global diff.tool "vscode"
+  git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
 }
 
-write_log_git "Configurando Git com os dados informados"
-git config --global user.name "$name"
-git config --global user.email "$email"
-git config --global user.username "$user_name"
+configuration_git() {
 
-write_log_git "Definindo a branch default 'main'"
-git config --global init.defaultBranch main
+  question_name
 
-write_log_git "Definindo vscode como editor padrão do git"
-git config --global core.editor "code --wait"
+  question_email
 
-write_log_git "Definindo vscode como difftool padrão do git"
-git config --global diff.tool "vscode"
-git config --global difftool.vscode.cmd "code --wait --diff \$LOCAL \$REMOTE"
+  question_email_is_username
+
+  question_username
+
+  set_configurations_git
+
+}
+
+confirm_question "Deseja realizar a configuração do git agora?" "configuration_git" "break_line"
 
 show_cursor

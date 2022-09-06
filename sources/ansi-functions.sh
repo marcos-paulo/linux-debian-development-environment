@@ -28,6 +28,10 @@ up_two_line() {
   printf "\033[2A"
 }
 
+up_line() {
+  printf "\033[$1A"
+}
+
 break_line() {
   printf "\n"
 }

@@ -104,3 +104,4 @@ source sources/install-neovim.sh
 
 # TODO To implement: show cursor when canceling script execution
 title "Restart the system"
+show_cursor

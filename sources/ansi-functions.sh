@@ -35,3 +35,7 @@ up_line() {
 break_line() {
   printf "\n"
 }
+
+break_two_line() {
+  printf "\n\n"
+}

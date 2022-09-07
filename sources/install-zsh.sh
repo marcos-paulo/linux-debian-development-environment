@@ -1,6 +1,8 @@
 #!/bin/bash
 sudo apt install -y zsh
 
+# TODO Refactore: Add functions, questions and optimize the file
+# chsh - ChangeShell
 tag "Set zsh as default shell"
 chsh -s /bin/zsh
 
@@ -21,3 +23,4 @@ fc-cache -f
 tag "Install powerlevel10k"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+# p10k configure - para configurar o powerlevel10k

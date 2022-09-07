@@ -9,6 +9,11 @@
     "prefix": "TODO",
     "body": ["# TODO Refactore extract function to ${1:filename} file"]
   },
+  "Refactore": {
+    "scope": "shellscript",
+    "prefix": "TODO",
+    "body": ["# TODO Refactore: ${1:description}"]
+  },
   "Optmize function": {
     "scope": "shellscript",
     "prefix": "TODO",

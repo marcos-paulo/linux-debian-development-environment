@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO refactore optmize function: merge start label and red label functions into one function
 start_label() {
   string_label="$1: "                 # label do field
   lenght_label_field=${#string_label} # tamanho do label
@@ -21,6 +22,7 @@ create_field() {
   end_label
 }
 
+# TODO refactore optmize function: remove
 # $1 string do label do field
 # $2 é o valor do campo
 create_label() {

@@ -1,0 +1,22 @@
+{
+  "Refactore to new file": {
+    "scope": "shellscript",
+    "prefix": "TODO",
+    "body": ["# TODO Refactore ${1:description} to new file"]
+  },
+  "Refactore to filename.sh file": {
+    "scope": "shellscript",
+    "prefix": "TODO",
+    "body": ["# TODO Refactore extract function to ${1:filename} file"]
+  },
+  "Optmize function": {
+    "scope": "shellscript",
+    "prefix": "TODO",
+    "body": ["# TODO Refactore optmize function: ${1:description}"]
+  },
+  "To implement": {
+    "scope": "shellscript",
+    "prefix": "TODO",
+    "body": ["# TODO To implement: ${1:description}"]
+  }
+}

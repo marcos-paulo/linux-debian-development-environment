@@ -101,6 +101,8 @@ install_zsh() {
 }
 tag_question "confirm_question" "Deseja instalar o zsh?" "install_zsh" "break_two_line"
 
+source "./sources/install-node.sh"
+
 source sources/install-neovim.sh
 
 # TODO To implement: show cursor when canceling script execution

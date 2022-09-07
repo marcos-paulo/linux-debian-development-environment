@@ -32,6 +32,7 @@ question_name() {
     up_one_line # não passou na validação suba uma linha
   done
 
+  # TODO Refactore optmize function: update implementation to new patern of confirm_question
   confirm_question "[GIT] O nome \033[34m$name\033[0m está correto?"
   [ $? -eq 0 ] && {
     # Se a resposta foi n|N vai retornar 0 quer dizer que o nome está incorreto
@@ -56,6 +57,7 @@ question_email() {
     up_one_line # não passou na validação suba uma linha
   done
 
+  # TODO Refactore optmize function: update implementation to new patern of confirm_question
   confirm_question "[GIT] O e-mail \033[34m$email\033[0m está correto?"
   [ $? -eq 0 ] && {
     # zero quer dizer que o email está incorreto logo aqui será implementado o
@@ -66,6 +68,7 @@ question_email() {
   }
 }
 
+# TODO Refactore optmize function: update implementation to new patern of confirm_question
 question_email_is_username() {
   # questiona se o email já digitado será o user.name do git hub
   confirm_question "[GIT] O e-mail \033[34m$email\033[0m é o seu usuario do GitHub?"
@@ -94,6 +97,7 @@ question_username() {
     create_label "$string_question_username" "$user_name"
   }
 
+  # TODO Refactore optmize function: update implementation to new patern of confirm_question
   confirm_question "[GIT] O nome de usuário GitHub ${AZUL}${user_name}${NORMAL} está correto?"
   [ $? -eq 0 ] && {
     # zero quer dizer que o usuário está incorreto logo aqui será implementado
@@ -137,6 +141,7 @@ configuration_git() {
 
 }
 
+# TODO Refactore optmize function: update implementation to new patern of confirm_question
 confirm_question "Deseja realizar a configuração do git agora?" "configuration_git" "break_line"
 
 show_cursor

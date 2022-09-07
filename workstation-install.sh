@@ -35,6 +35,7 @@ tag() {
 }
 
 # TODO refactore tag_question to new file
+# TODO BUG erase line from #### when pressing y
 tag_question() {
   printf "${AZUL}"
   printf "####################################################################\n"

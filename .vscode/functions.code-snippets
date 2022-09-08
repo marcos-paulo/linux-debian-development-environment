@@ -15,16 +15,16 @@
   // 	],
   // 	"description": "Log output to console"
   // }
-  "Tag Question": {
+  "tag_question[y|n]": {
     "scope": "shellscript",
-    "prefix": "tag_question[y|n]",
+    "prefix": "QUESTION",
     "body": [
       "tag_question \"confirm_question\" \"${1:Question string}\" \"${2:Command case true}\" \"${3|break_line,break_two_line|}\""
     ]
   },
-  "Question": {
+  "Question[y|n]": {
     "scope": "shellscript",
-    "prefix": "question[y|n]",
+    "prefix": "QUESTION",
     "body": [
       "confirm_question\" \"${1:Question string}\" \"${2:Command case true}\" \"${3|break_line,break_two_line|}\""
     ]

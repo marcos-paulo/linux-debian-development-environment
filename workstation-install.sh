@@ -1,7 +1,7 @@
 #!/bin/bash
-source ./sources/cores.sh
-source ./sources/ansi-functions.sh
-source ./sources/questions.sh
+source "./sources/cores.sh"
+source "./sources/ansi-functions.sh"
+source "./sources/questions.sh"
 
 echo >install-workstation-log.txt
 
@@ -83,27 +83,27 @@ tag_question "confirm_question" "Deseja instalar a font JetBrainsMono?" "install
 # TODO refactore extract function to install-git.sh file
 install_git() {
   title "Install Git"
-  source sources/install-git.sh
+  source "./sources/install-git.sh"
 }
 tag_question "confirm_question" "Deseja instalar o Git?" "install_git" "break_two_line"
 
 # TODO refactore extract function to "./sources/install-docker.sh" file
 install_docker() {
   title "Install Docker"
-  source sources/install-docker.sh
+  source "./sources/install-docker.sh"
 }
 tag_question "confirm_question" "Deseja instalar o Docker?" "install_docker" "break_two_line"
 
 # TODO refactore extract function to "./sources/install-zsh.sh" file
 install_zsh() {
   title "Install Zsh"
-  source sources/install-zsh.sh
+  source "./sources/install-zsh.sh"
 }
 tag_question "confirm_question" "Deseja instalar o zsh?" "install_zsh" "break_two_line"
 
 source "./sources/install-node.sh"
 
-source sources/install-neovim.sh
+source "./sources/install-neovim.sh"
 
 # TODO To implement: show cursor when canceling script execution
 title "Restart the system"

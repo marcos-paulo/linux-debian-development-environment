@@ -103,6 +103,8 @@ tag_question "confirm_question" "Deseja instalar o zsh?" "install_zsh" "break_tw
 
 source "./sources/install-node.sh"
 
+source "./sources/install-python3.sh"
+
 source "./sources/install-neovim.sh"
 
 # TODO To implement: show cursor when canceling script execution

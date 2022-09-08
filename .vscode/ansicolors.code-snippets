@@ -1,0 +1,31 @@
+{
+  "Color Text": {
+    "scope": "shellscript",
+    "prefix": "ANSI",
+    "body": [
+      "\\${${1|PRETO,VERMELHO,VERDE,AMARELO,AZUL,MAGENTA,CIANO,BRANCO|}\\}"
+    ]
+  },
+  // #CORES DE FUNDO
+  "Background": {
+    "scope": "shellscript",
+    "prefix": "ANSI",
+    "body": [
+      "\\${${1|_PRETO,_VERMELHO,_VERDE,_AMARELO,_AZUL,_MAGENTA,_CIANO,_BRANCO|}\\}"
+    ]
+  },
+  // #MODOS ANS}I
+  "Clear ansi codes": {
+    "scope": "shellscript",
+    "prefix": "ANSI",
+    "body": ["\\${NORMAL\\}"]
+  },
+
+  "Formatting": {
+    "scope": "shellscript",
+    "prefix": "ANSI",
+    "body": [
+      "\\${${1|NEGRITO,BAIXA_INTENSID,ITALICO,SUBLINHADO,PISCANDO,PISCA_RAPIDO,INVERSO,INVISIVEL|}\\}"
+    ]
+  }
+}

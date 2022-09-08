@@ -26,22 +26,22 @@ title() {
 }
 
 # TODO refactore tag to new file
+# $1 text of tag
+# $2 label between bracket
 tag() {
   printf "${AZUL}"
-  printf "####################################################################\n"
-  printf "${1}"
-  printf "####################################################################"
+  printf "#####################################################################"
+  printf "${NORMAL}\n"
+  printf "${AZUL}${2}${NORMAL} ${VERDE}${1}${NORMAL}\n"
+  printf "${AZUL}"
+  printf "#####################################################################"
   printf "${NORMAL}\n"
 }
 
 # TODO refactore tag_question to new file
 # TODO BUG erase line from #### when pressing y
 tag_question() {
-  printf "${AZUL}"
-  printf "####################################################################\n"
-  printf "\n"
-  printf "####################################################################"
-  printf "${NORMAL}\n"
+  tag
   up_two_line
   $1 "$2" "$3" "$4"
 }

@@ -70,6 +70,8 @@ source "./sources/install-node.sh"
 
 source "./sources/install-python3.sh"
 
+source "./sources/install-rust.sh"
+
 source "./sources/install-neovim.sh"
 
 # TODO To implement: show cursor when canceling script execution

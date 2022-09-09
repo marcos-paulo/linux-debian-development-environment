@@ -1,4 +1,5 @@
 #!/bin/bash
+path_sh=$(pwd)
 source "./util/print_log.sh"
 source "./util/separator_params.sh"
 source "./util/command-test.sh"

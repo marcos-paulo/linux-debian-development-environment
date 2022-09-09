@@ -28,7 +28,7 @@ up_two_line() {
   printf "\033[2A"
 }
 
-up_line() {
+up_any_line() {
   printf "\033[$1A"
 }
 

@@ -39,3 +39,7 @@ break_line() {
 break_two_line() {
   printf "\n\n"
 }
+
+return_car() {
+  printf "\r"
+}

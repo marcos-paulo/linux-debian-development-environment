@@ -1,4 +1,7 @@
 #!/bin/bash
+source "./util/print_log.sh"
+source "./util/separator_params.sh"
+source "./util/command-test.sh"
 source "./sources/cores.sh"
 source "./sources/ansi-functions.sh"
 source "./sources/questions.sh"

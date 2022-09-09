@@ -36,35 +36,48 @@ create_label() {
 # $2 - function callback if [y|Y]
 # $3 - function callback if [n|N]
 confirm_question() {
-  while create_field "$1 [y/n]" -N 1; do
+  # store the value of $1 param
+  string_question=$1
+  # remove the first parameter from the queue
+  shift 1
+
+  # store the rest of the parameters in an array
+  separator_y_n_params_=
+  for j in $(seq 0 $(expr $# - 1)); do
+    # store the value of $1 param
+    separator_y_n_params_[$j]=$1
+    # remove the first parameter from the queue
+    shift 1
+  done
+
+  separator_y_n_params
+
+  # create a $field that only receive, one character an answer
+  # -N 1 limits the field a one character
+  while create_field "$string_question [y/n]" -N 1; do
     lenght_question=$lenght_label_field
 
-    # este bloco representa um if com operadores ternarios
-    # && representa o true
-    # || representa o else
-    [[ "$(echo "$field" | tr -d '\n')" =~ ^$ ]] && up_one_line || {
+    if [[ "$(echo "$field" | tr -d '\n')" =~ ^$ ]]; then
+      # if $field is empty then, run up_one_line
+      up_one_line
 
-      [[ "$field" =~ ^y|Y$ ]] && {
-        # quebra a linha é padrão para todas as questões pois ao responder y|Y
-        # sempre irá saltar para a proxima linha
-        break_line
-        $2
-        return 1
-      }
+    elif [[ "$field" =~ ^y|Y$ ]]; then
+      # if $field is y or Y then, run all stored commands at params_y array
+      last_i=$(expr ${#params_y[@]} - 1)
+      for i in $(seq 0 $last_i); do
+        ${params_y[$i]}
+      done
 
-      [[ "$field" =~ ^n|N$ ]] && {
-        # Ao responder n|N cada questão poderá implementar o comportamento do
-        # cursor de forma diferente baseado no fato de que o cursor vai estar
-        # na primeira coluna.
-        # Ao responder n|N será chamada a função armazenada no parametro $3 caso
-        # exista
-        move_cursor_to_first_column "$string_label"
-        $3
-        return 0
-      }
+    elif [[ "$field" =~ ^n|N$ ]]; then
+      # if $field is n or N then, run all stored commands at params_n array
+      last_i=$(expr ${#params_n[@]} - 1)
+      for i in $(seq 0 $last_i); do
+        ${params_n[$i]}
+      done
 
-      printf "\n\033[1A"
-    }
+    fi
 
   done
 }
+
+# printf "\n\033[1A"

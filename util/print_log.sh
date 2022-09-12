@@ -9,7 +9,7 @@ write_log() {
 tag_figlet() {
   printf "$NEGRITO"
   printf "$VERDE"
-  figlet "$1"
+  figlet -f big "$1"
   printf "$NORMAL"
 }
 

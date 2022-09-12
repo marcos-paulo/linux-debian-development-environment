@@ -1,12 +1,10 @@
 #!/bin/bash
 # TODO refactore optmize function: merge start label and red label functions into one function
 start_label() {
-  string_label="$1: "                 # label do field
-  lenght_label_field=${#string_label} # tamanho do label
-  clear_line                          # limpa a linha
-  printf "$string_label"              # mostra o label
-  printf "$MAGENTA"                   # define uma cor a partir daqui conforme tabela ANSI
-  show_cursor                         # mostra o cursor
+  string_label="$1: "    # label do field
+  printf "$string_label" # mostra o label
+  printf "$MAGENTA"      # define uma cor a partir daqui conforme tabela ANSI
+  show_cursor            # mostra o cursor
 }
 
 end_label() {
@@ -29,7 +27,6 @@ create_label() {
   start_label "$1"
   printf "$2"
   end_label
-  break_line
 }
 
 # $1 - string question
@@ -46,14 +43,15 @@ confirm_question() {
   shift 1
 
   # store the rest of the parameters in an array
-  separator_y_n_params_=
+  unset separator_y_n_params_
+  # separator_y_n_params_=
   for j in $(seq 0 $(expr $# - 1)); do
     # store the value of $1 param
     separator_y_n_params_[$j]=$1
     # remove the first parameter from the queue
     shift 1
   done
-
+  # echo ${separator_y_n_params_[@]}
   separator_y_n_params
 
   # create a $field that only receive, one character an answer
@@ -83,7 +81,6 @@ confirm_question() {
 
     fi
     return_car
+    clear_line
   done
 }
-
-# printf "\n\033[1A"

@@ -28,5 +28,17 @@
     "body": [
       "confirm_question\" \"${1:Question string}\" \"${2:Command case true}\" \"${3|break_line,break_two_line|}\""
     ]
+  },
+  "Function and Question": {
+    "scope": "shellscript",
+    "prefix": "INSTALL",
+    "body": [
+      "$1() {",
+      "tag_figlet \"$1\"",
+      "break_line",
+      "$2",
+      "}",
+      "tag_question \"confirm_question\" \"${3:Question string}\" \"$1\" \"${4|break_line,break_two_line|}\""
+    ]
   }
 }

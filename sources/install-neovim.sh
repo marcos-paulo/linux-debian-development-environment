@@ -32,7 +32,8 @@ build_neovim() {
   break_line
   sudo rm -rf build/ # clear the CMake cache
   # make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" >"${path_sh}/install_neovim_make.txt" 2>&1
-  make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" 2>&1 | getInput
+  make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" 2>&1 | progress_bar
+  break_line
 }
 
 install_neovim() {

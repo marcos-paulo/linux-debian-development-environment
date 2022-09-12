@@ -4,17 +4,18 @@
 # come after the -n flag
 # parses the $separator_y_n_params_ variable as an array
 separator_y_n_params() {
-  toogle_y_n=
+  unset toogle_y_n
 
   index_true=0
-  params_y=
+  unset params_y
 
   index_false=0
-  params_n=
+  unset params_n
 
   last_i=$(expr ${#separator_y_n_params_[@]} - 1)
   for i in $(seq 0 $last_i); do
     value=${separator_y_n_params_[$i]}
+
     if [[ $value =~ ^-[yn]$ ]]; then
       toogle_y_n=$value
 

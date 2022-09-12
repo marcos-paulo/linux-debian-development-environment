@@ -40,8 +40,14 @@ install_neovim() {
   tag_no_figlet "Installing neovim..." "[NeoVim]"
   break_line
   sudo make install >"${path_sh}/install_neovim_install.txt" 2>&1
-  echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.bashrc
-  echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.zshrc
+
+  if [ -z "$(cat $HOME/.bashrc | grep -P "$PATH_TO_INSTALL")" ]; then
+    echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.bashrc
+  fi
+
+  if [ -z "$(cat $HOME/.zshrc | grep -P "$PATH_TO_INSTALL")" ]; then
+    echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.zshrc
+  fi
 
 }
 
@@ -55,7 +61,9 @@ run_install_neovim() {
 
 already_installed() {
   question_tag_no_figlet
-  confirm_question "Neovim já instalado, deseja reinstalá-lo?" -y "break_two_line" "run_install_neovim" -n "break_two_line"
+  confirm_question "Neovim já instalado, deseja reinstalá-lo?" \
+    -y "break_two_line" "run_install_neovim" \
+    -n "break_two_line"
 }
 
 test_neovim() {
@@ -78,7 +86,9 @@ install() {
 }
 
 question_tag_no_figlet
-confirm_question "Deseja instalar o NeoVim e o LunarVim?" -y "break_two_line" "install" -n "break_two_line"
+confirm_question "Deseja instalar o NeoVim e o LunarVim?" \
+  -y "break_two_line" "install" \
+  -n "break_two_line"
 # tag_question
 
 cd "$path_sh"

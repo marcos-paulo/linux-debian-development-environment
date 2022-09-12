@@ -8,4 +8,5 @@ install_rust_cargo() {
   echo "source \"$HOME/.cargo/env\"" >>$HOME/.zshrc
   source "$HOME/.cargo/env"
 }
-tag_question "confirm_question" "Deseja instalar o Rust-Cargo" "install_rust_cargo" "break_two_line"
+question_tag_no_figlet
+confirm_question "Deseja instalar o Rust-Cargo" "install_rust_cargo" "break_two_line"

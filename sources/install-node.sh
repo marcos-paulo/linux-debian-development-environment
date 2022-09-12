@@ -6,4 +6,7 @@ install_nodejs() {
   sudo apt-get install -y nodejs
   sudo npm install --global yarn
 }
-tag_question "confirm_question" "Deseja instalar o NodeJs" "install_nodejs" "break_two_line"
+question_tag_no_figlet
+confirm_question "Deseja instalar o NodeJs" \
+  -y "install_nodejs" \
+  -n "break_two_line"

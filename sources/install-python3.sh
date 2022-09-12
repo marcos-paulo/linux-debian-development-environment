@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install_python3_pip() {
-  title "Install python3-pip"
+  tag_figlet "Install python3-pip"
   break_line
   sudo apt install -y python3-pip >install-python3.txt 2>&1
 }

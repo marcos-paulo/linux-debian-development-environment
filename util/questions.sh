@@ -33,8 +33,12 @@ create_label() {
 }
 
 # $1 - string question
-# $2 - function callback if [y|Y]
-# $3 - function callback if [n|N]
+# se -y for passado como parametro, os proximos parametros serão executados
+# quando a pergunta for respondida com y|Y
+# se -n for passado como parametro, os proximos parametros serão executados
+# quando a pergunta for respondida com n|N
+# example:
+#   confirm_question "String question?" -y command_1 command_2 -n command_3 command_4
 confirm_question() {
   # store the value of $1 param
   string_question=$1
@@ -67,6 +71,7 @@ confirm_question() {
       for i in $(seq 0 $last_i); do
         ${params_y[$i]}
       done
+      return
 
     elif [[ "$field" =~ ^n|N$ ]]; then
       # if $field is n or N then, run all stored commands at params_n array
@@ -74,9 +79,10 @@ confirm_question() {
       for i in $(seq 0 $last_i); do
         ${params_n[$i]}
       done
+      return
 
     fi
-
+    return_car
   done
 }
 

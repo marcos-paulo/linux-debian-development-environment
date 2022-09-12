@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install_rust_cargo() {
-  title "Install Rust Cargo"
+  tag_figlet "Install Rust Cargo"
   break_line
   curl https://sh.rustup.rs -sSf | sh
   echo "source \"$HOME/.cargo/env\"" >>$HOME/.bashrc

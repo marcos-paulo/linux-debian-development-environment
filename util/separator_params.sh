@@ -15,20 +15,21 @@ separator_y_n_params() {
   last_i=$(expr ${#separator_y_n_params_[@]} - 1)
   for i in $(seq 0 $last_i); do
     value=${separator_y_n_params_[$i]}
-    echo $toogle_y_n
     if [[ $value =~ ^-[yn]$ ]]; then
+      toogle_y_n=$value
 
-      if [ $toogle_y_n == "-y" ]; then
-        echo index_true $index_true
-        params_y[$index_true]=$value
-        index_true=$(expr $index_true + 1)
+    elif [ "$toogle_y_n" == "-y" ]; then
+      params_y[$index_true]=$value
+      index_true=$(expr $index_true + 1)
 
-      elif [ $toogle_y_n == "-n" ]; then
-        echo index_false $index_false
-        params_n[$index_false]=$value
-        index_false=$(expr $index_false + 1)
+    elif [ "$toogle_y_n" == "-n" ]; then
+      params_n[$index_false]=$value
+      index_false=$(expr $index_false + 1)
 
-      fi
     fi
+
   done
+  # For tests
+  # echo "PARAMS Y ~${params_y[@]}"
+  # echo "PARAMS N ~${params_n[@]}"
 }

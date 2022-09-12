@@ -6,8 +6,6 @@ write_log() {
   echo "$msg"
 }
 
-# title() {
-#
 tag_figlet() {
   printf "$NEGRITO"
   printf "$VERDE"
@@ -28,10 +26,8 @@ tag_no_figlet() {
   printf "${NORMAL}"
 }
 
-# TODO BUG erase line from #### when pressing y
-tag_question() {
+question_tag_no_figlet() {
   tag_no_figlet
-  up_line
+  up_one_line
   return_car
-  $1 "$2" "$3" "$4"
 }

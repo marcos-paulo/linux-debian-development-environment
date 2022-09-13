@@ -35,6 +35,11 @@ powerlevel10k() {
   # p10k configure - para configurar o powerlevel10k
 }
 
+copy_p10k_profile() {
+  tag_no_figlet "Copy powerlevel10k profile .p10k.zsh for $HOME"
+  cp "./sources/.p10k.zsh" "~/"
+}
+
 main_zsh() {
   tag_figlet "Install Zsh"
   install_zsh
@@ -42,7 +47,7 @@ main_zsh() {
   create_zshrc
   font_meslo_lgs
   powerlevel10k
-
+  copy_p10k_profile
 }
 
 question_tag_no_figlet

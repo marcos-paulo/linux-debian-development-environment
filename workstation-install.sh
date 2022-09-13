@@ -11,7 +11,7 @@ source "./sources/install-curl.sh"
 
 source "./sources/install-vscode.sh"
 
-source "./sources/install-jetbrainsmono.sh"
+source "./sources/install-jet-brains-mono.sh"
 
 source "./sources/install-git.sh"
 
@@ -27,7 +27,6 @@ source "./sources/install-rust.sh"
 
 source "./sources/install-neovim.sh"
 
-# TODO To implement: show cursor when canceling script execution
 tag_figlet "Restart the system"
 break_line
 show_cursor

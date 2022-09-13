@@ -22,7 +22,7 @@ docker_download() {
 
 docker_install() {
   sudo apt-get update
-  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 }
 
 # Install Docker Compose manualmente (não prescisa deixei só pra saber)

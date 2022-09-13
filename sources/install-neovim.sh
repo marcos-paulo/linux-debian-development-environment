@@ -19,10 +19,10 @@ remove_current_neovim() {
 download_source_neovim() {
   tag_no_figlet "Downloading source neovim..." "[NeoVim]"
   break_line
-  # sudo rm -rf /tmp/neovim
+  sudo rm -rf /tmp/neovim
   mkdir -p /tmp/neovim
   cd /tmp/neovim
-  # git clone https://github.com/neovim/neovim
+  git clone https://github.com/neovim/neovim
   cd neovim
   git checkout stable
 }
@@ -31,7 +31,8 @@ build_neovim() {
   tag_no_figlet "Building neovim..." "[NeoVim]"
   break_line
   sudo rm -rf build/ # clear the CMake cache
-  # make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" >"${path_sh}/install_neovim_make.txt" 2>&1
+  break_line
+  progress_bar_log_file="building_neovim.txt"
   make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" 2>&1 | progress_bar
   break_line
 }
@@ -39,7 +40,7 @@ build_neovim() {
 install_neovim() {
   tag_no_figlet "Installing neovim..." "[NeoVim]"
   break_line
-  sudo make install >"${path_sh}/install_neovim_install.txt" 2>&1
+  sudo make install >"${path_sh}/log/install_neovim_install.txt" 2>&1
 
   if [ -z "$(cat $HOME/.bashrc | grep -P "$PATH_TO_INSTALL")" ]; then
     echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.bashrc
@@ -48,6 +49,11 @@ install_neovim() {
   if [ -z "$(cat $HOME/.zshrc | grep -P "$PATH_TO_INSTALL")" ]; then
     echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.zshrc
   fi
+
+  tag_no_figlet "Installation performed successfully" "[NeoVim]"
+  break_line
+
+  source $HOME/.bashrc
 
 }
 
@@ -70,7 +76,6 @@ test_neovim() {
   tag_figlet "Install NeoVim"
   break_line
   command_test "nvim" "already_installed" "run_install_neovim"
-
 }
 
 # TODO implement LunarVim installation in latest version

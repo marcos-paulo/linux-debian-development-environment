@@ -3,6 +3,11 @@ function progress_bar() {
   # show first progress_bar
   show_bar
 
+  if [ -z "$progress_bar_log_file" ]; then
+    progress_bar_log_file="progress.txt"
+  fi
+  echo >"$path_sh/log/$progress_bar_log_file"
+
   if test -n "$1"; then
     echo "Read from positional argument $1"
   elif test ! -t 0; then
@@ -13,10 +18,9 @@ function progress_bar() {
       [[ "$ab" =~ \[([0-9]+)\/([0-9]+)\].* ]] && {
         quantity=${BASH_REMATCH[1]}
         total=${BASH_REMATCH[2]}
-        percentage=$(echo "scale=2;($quantity/$total)" | bc)
-        print_bar $percentage
+        print_bar $quantity $total
       }
-      echo "$ab" >>"$path_sh/progress.txt"
+      echo "$ab" >>"$path_sh/log/$progress_bar_log_file"
     done
   else
     echo "No standard input."
@@ -47,8 +51,9 @@ show_bar() {
 index_progress_bar=0
 progress_bar_array[0]=0
 print_bar() {
-  percent=$(echo "scale=2;($1*100)" | bc | sed -r "s/\.[0-9]+//")
-  percent_bar=$(echo "scale=2;($1*$lenght_bar)" | bc | sed -r "s/\.[0-9]+//")
+  percent=$((($1 * 100) / $2))
+  percent_bar=$((($percent * $lenght_bar) / 100))
+  # $(echo "scale=2;($1*$lenght_bar)" | bc | sed -r "s/\.[0-9]+//")
 
   # if the current progress_bar is equal to 100
   if [ ${progress_bar_array[$index_progress_bar]} -eq 100 ]; then

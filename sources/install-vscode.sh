@@ -10,5 +10,5 @@ install_vscode() {
 
 question_tag_no_figlet
 confirm_question "Deseja instalar o VsCode?" \
-  -y "install_vscode" \
+  -y "break_two_line" "install_vscode" \
   -n "break_two_line"

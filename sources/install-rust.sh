@@ -9,4 +9,6 @@ install_rust_cargo() {
   source "$HOME/.cargo/env"
 }
 question_tag_no_figlet
-confirm_question "Deseja instalar o Rust-Cargo" "install_rust_cargo" "break_two_line"
+confirm_question "Deseja instalar o Rust-Cargo" \
+  -y "break_two_line" "install_rust_cargo" \
+  -n "break_two_line"

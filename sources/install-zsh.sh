@@ -2,6 +2,7 @@
 
 install_zsh() {
   tag_no_figlet "Instaling... ZSH"
+  break_line
   sudo apt install -y zsh
 }
 

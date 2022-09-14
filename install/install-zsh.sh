@@ -10,7 +10,7 @@ default_shell() {
   # chsh - ChangeShell
   tag_no_figlet "Set zsh as default shell"
   break_line
-  chsh -s /bin/zsh
+  sudo chsh -s /bin/zsh
 }
 
 create_zshrc() {
@@ -37,7 +37,10 @@ powerlevel10k() {
 
 copy_p10k_profile() {
   tag_no_figlet "Copy powerlevel10k profile .p10k.zsh for $HOME"
-  cp "./sources/.p10k.zsh" "~/"
+  break_line
+  cp "./sources/.p10k.zsh" "$HOME/"
+  echo "# To customize prompt, run \$(p10k configure) or edit ~/.p10k.zsh." >>~/.zshrc
+  echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >>~/.zshrc
 }
 
 main_zsh() {

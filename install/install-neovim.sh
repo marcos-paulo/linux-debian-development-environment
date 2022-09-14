@@ -1,5 +1,8 @@
 #!/bin/bash
-PATH_TO_INSTALL="$HOME/.neovim"
+PATH_NEOVIM="$HOME/.neovim"
+BIN_NVIM="$PATH_NEOVIM/bin"
+
+BIN_LVIM="$HOME/.local/bin"
 
 # for build for neovim
 # https://github.com/neovim/neovim/wiki/Building-Neovim
@@ -7,13 +10,13 @@ PATH_TO_INSTALL="$HOME/.neovim"
 install_dependencies_neovim() {
   tag_no_figlet "Install dependencies for build" "[NeoVim]"
   break_line
-  sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+  sudo apt-get install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
 }
 
 remove_current_neovim() {
   tag_no_figlet "Removendo instalaçao anterior!" "[NeoVim]"
   break_line
-  sudo rm -rf $PATH_TO_INSTALL
+  sudo rm -rf $PATH_NEOVIM
 }
 
 download_source_neovim() {
@@ -33,7 +36,7 @@ build_neovim() {
   sudo rm -rf build/ # clear the CMake cache
   break_line
   progress_bar_log_file="building_neovim.txt"
-  make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_TO_INSTALL" 2>&1 | progress_bar
+  make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$PATH_NEOVIM" 2>&1 | progress_bar
   break_line
 }
 
@@ -42,19 +45,24 @@ install_neovim() {
   break_line
   sudo make install >"${path_sh}/log/install_neovim_install.txt" 2>&1
 
-  if [ -z "$(cat $HOME/.bashrc | grep -P "$PATH_TO_INSTALL")" ]; then
-    echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.bashrc
-  fi
+  test_and_export_bin_path_in_shell_rc_file "$BIN_NVIM" "$HOME/.bashrc"
+  test_and_export_bin_path_in_shell_rc_file "$BIN_NVIM" "$HOME/.zshrc"
 
-  if [ -z "$(cat $HOME/.zshrc | grep -P "$PATH_TO_INSTALL")" ]; then
-    echo "export PATH=\"$PATH_TO_INSTALL/bin:\$PATH\"" >>$HOME/.zshrc
-  fi
+  # if [ -z "$(cat $HOME/.bashrc | grep -P "$BIN_NVIM")" ]; then
+  #   echo "export PATH=\"$BIN_NVIM:\$PATH\"" >>$HOME/.bashrc
+  # fi
+
+  # if [ -z "$(cat $HOME/.zshrc | grep -P "$BIN_NVIM")" ]; then
+  #   echo "export PATH=\"$BIN_NVIM:\$PATH\"" >>$HOME/.zshrc
+  # fi
 
   tag_no_figlet "Installation performed successfully" "[NeoVim]"
   break_line
 
-  source $HOME/.bashrc
+}
 
+export_path_nvim() {
+  test_and_export_path_environment_in_this_shell "$BIN_NVIM"
 }
 
 run_install_neovim() {
@@ -63,6 +71,7 @@ run_install_neovim() {
   download_source_neovim
   build_neovim
   install_neovim
+  export_path_nvim
 }
 
 already_installed() {
@@ -78,22 +87,23 @@ test_neovim() {
   command_test "nvim" "already_installed" "run_install_neovim"
 }
 
-# TODO implement LunarVim installation in latest version
+question_tag_no_figlet
+confirm_question "Deseja instalar o NeoVim?" \
+  -y "break_two_line" "test_neovim" \
+  -n "break_two_line"
+
 install_lunarvim() {
   tag_figlet "Install LunarVim"
   break_line
-  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
-}
-
-install() {
-  test_neovim
-  install_lunarvim
+  test_and_export_bin_path_in_shell_rc_file "$BIN_LVIM" "$HOME/.bashrc"
+  test_and_export_bin_path_in_shell_rc_file "$BIN_LVIM" "$HOME/.zshrc"
+  test_and_export_path_environment_in_this_shell "$BIN_LVIM"
+  /bin/bash -c "$(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)"
 }
 
 question_tag_no_figlet
-confirm_question "Deseja instalar o NeoVim e o LunarVim?" \
-  -y "break_two_line" "install" \
+confirm_question "Deseja instalar o LunarVim?" \
+  -y "break_two_line" "install_lunarvim" \
   -n "break_two_line"
-# tag_question
 
 cd "$path_sh"

@@ -3,8 +3,8 @@ install_nodejs() {
   tag_figlet "Install Node"
   break_line
   curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-  sudo npm install --global yarn
+  sudo apt-get install -y nodejs 2>&1 | write_log
+  sudo npm install --global yarn 2>&1 | write_log
 }
 
 question_tag_no_figlet

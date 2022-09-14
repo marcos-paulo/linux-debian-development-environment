@@ -48,14 +48,6 @@ install_neovim() {
   test_and_export_bin_path_in_shell_rc_file "$BIN_NVIM" "$HOME/.bashrc"
   test_and_export_bin_path_in_shell_rc_file "$BIN_NVIM" "$HOME/.zshrc"
 
-  # if [ -z "$(cat $HOME/.bashrc | grep -P "$BIN_NVIM")" ]; then
-  #   echo "export PATH=\"$BIN_NVIM:\$PATH\"" >>$HOME/.bashrc
-  # fi
-
-  # if [ -z "$(cat $HOME/.zshrc | grep -P "$BIN_NVIM")" ]; then
-  #   echo "export PATH=\"$BIN_NVIM:\$PATH\"" >>$HOME/.zshrc
-  # fi
-
   tag_no_figlet "Installation performed successfully" "[NeoVim]"
   break_line
 

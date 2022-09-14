@@ -12,17 +12,17 @@ docker_dependencies() {
     ca-certificates \
     curl \
     gnupg \
-    lsb-release
+    lsb-release 2>&1 | write_log
 }
 
 docker_download() {
-  curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | sudo apt-key add - 2>/dev/null
+  curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | sudo apt-key add - 2>/dev/null | write_log
   echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 }
 
 docker_install() {
-  sudo apt-get update
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+  sudo apt-get update 2>&1 | write_log
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin 2>&1 | write_log
 }
 
 # Install Docker Compose manualmente (não prescisa deixei só pra saber)

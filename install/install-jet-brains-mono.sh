@@ -2,10 +2,8 @@
 
 install_jet_brains_mono() {
   tag_figlet "Install JetBrainsMono"
-  break_line
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
-  echo status install JetBrainsMono $? >>install-workstation-log.txt
-  echo >>install-workstation-log.txt
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)" \
+    2>&1 | write_log
 }
 
 question_tag_no_figlet

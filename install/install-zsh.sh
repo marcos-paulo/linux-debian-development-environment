@@ -3,34 +3,34 @@
 install_zsh() {
   tag_no_figlet "Instaling... ZSH"
   break_line
-  sudo apt install -y zsh
+  sudo apt install -y zsh 2>&1 | write_log
 }
 
 default_shell() {
   # chsh - ChangeShell
   tag_no_figlet "Set zsh as default shell"
   break_line
-  sudo chsh -s /bin/zsh
+  sudo chsh -s /bin/zsh 2>&1 | write_log
 }
 
 create_zshrc() {
   tag_no_figlet "Create file .zshrc"
   break_line
-  touch ~/.zshrc
+  touch ~/.zshrc 2>&1 | write_log
 }
 
 font_meslo_lgs() {
   tag_no_figlet "Install MesloLGS"
   break_line
   sudo mkdir -p "/usr/share/fonts/truetype/MesloLGS"
-  sudo cp ./fonts/* /usr/share/fonts/truetype/MesloLGS/
+  sudo cp ./fonts/* /usr/share/fonts/truetype/MesloLGS/ 2>&1 | write_log
   fc-cache -f
 }
 
 powerlevel10k() {
   tag_no_figlet "Install powerlevel10k"
   break_line
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k 2>&1 | write_log
   echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
   # p10k configure - para configurar o powerlevel10k
 }

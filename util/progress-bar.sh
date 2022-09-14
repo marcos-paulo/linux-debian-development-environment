@@ -10,11 +10,10 @@ function progress_bar() {
 
   if test -n "$1"; then
     echo "Read from positional argument $1"
+
+  # from stdin if file descriptor /dev/stdin is open"
   elif test ! -t 0; then
-    # echo "Read from stdin if file descriptor /dev/stdin is open"
     while read ab; do
-      teste=$(echo $ab | grep -P "\[([0-9]+)\/([0-9]+)\].*")
-      regex='\[([0-9]+)\/([0-9]+)\].*'
       [[ "$ab" =~ \[([0-9]+)\/([0-9]+)\].* ]] && {
         quantity=${BASH_REMATCH[1]}
         total=${BASH_REMATCH[2]}

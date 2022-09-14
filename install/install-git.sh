@@ -1,13 +1,12 @@
 #!/bin/bash
 
+write_log_git() {
+  write_log "[GIT] $1"
+}
+
 install_git() {
   tag_figlet "Install Git"
-
-  sudo apt install git -y
-
-  echo status install git $? >>install-workstation-log.txt
-
-  echo >>install-workstation-log.txt
+  sudo apt install git -y 2>&1 | write_log
 
 }
 
@@ -19,10 +18,6 @@ confirm_question "Deseja instalar o Git?" \
 # $1 texto que deve ser impresso como erro
 print_error() {
   printf "$1"
-}
-
-write_log_git() {
-  write_log "[GIT] $1"
 }
 
 # $1 string que vai ser testada

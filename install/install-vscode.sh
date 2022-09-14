@@ -2,10 +2,7 @@
 
 install_vscode() {
   tag_figlet "Install VsCode"
-  break_line
-  sudo snap install code --classic
-  echo status install code $? >>install-workstation-log.txt
-  echo >>install-workstation-log.txt
+  sudo snap install code --classic 2>&1 | write_log
 }
 
 question_tag_no_figlet

@@ -1,8 +1,6 @@
 #!/bin/bash
 source "./imports.sh"
 
-echo >install-workstation-log.txt
-
 source "./install/install-figlet.sh"
 
 source "./install/install-update-system.sh"

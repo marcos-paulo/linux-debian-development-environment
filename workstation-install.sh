@@ -1,29 +1,24 @@
 #!/bin/bash
-source "./imports.sh"
+path_sh=$(pwd)
+mkdir -p log
 
-source "./install/install-figlet.sh"
+# path_scripts=$(echo $0 | sed "s|/workstation-install.sh||g ")
+# echo path $path_scripts
 
-source "./install/install-update-system.sh"
+for indiceFileA in $path_sh/util/*.sh; do
+  echo "util $indiceFileA"
+  if [ -r $indiceFileA ]; then
+    . "$indiceFileA"
+  fi
+done
+unset indiceFileA
 
-source "./install/install-curl.sh"
-
-source "./install/install-vscode.sh"
-
-source "./install/install-jet-brains-mono.sh"
-
-source "./install/install-git.sh"
-
-source "./install/install-docker.sh"
-
-source "./install/install-zsh.sh"
-
-source "./install/install-node.sh"
-
-source "./install/install-python3.sh"
-
-source "./install/install-rust.sh"
-
-source "./install/install-neovim.sh"
+for indiceFileB in $path_sh/install/*.sh; do
+  if [ -r $indiceFileB ]; then
+    . "$indiceFileB"
+  fi
+done
+unset indiceFileB
 
 tag_figlet "Restart the system"
 break_line

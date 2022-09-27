@@ -16,21 +16,27 @@ docker_dependencies() {
 }
 
 docker_download() {
-  curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | sudo apt-key add - 2>/dev/null | write_log
-  echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+  sudo mkdir -p /etc/apt/keyrings
+  curl -fsSL "https://download.docker.com/linux/$(lsb_release -is |
+    tr '[:upper:]' '[:lower:]')/gpg" |
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+  echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+    https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+
 }
 
 docker_install() {
   sudo apt-get update 2>&1 | write_log
-  sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin 2>&1 | write_log
+  sudo apt-get install -y \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-compose-plugin \
+    2>&1 | write_log
 }
-
-# Install Docker Compose manualmente (não prescisa deixei só pra saber)
-# DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-# mkdir -p $DOCKER_CONFIG/cli-plugins
-# export LATEST_COMPOSE_VERSION=$(curl -sSL "https://api.github.com/repos/docker/compose/releases/latest" | grep -o -P '(?<="tag_name": ").+(?=")')
-# sudo curl -sSL "https://github.com/docker/compose/releases/download/${LATEST_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/lib/docker/cli-plugins
-# sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 
 docker_group() {
   write_log_docker "Criando grupo docker ..."

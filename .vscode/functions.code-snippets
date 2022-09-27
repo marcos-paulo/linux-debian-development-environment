@@ -40,5 +40,21 @@
       "}",
       "tag_question \"confirm_question\" \"${3:Question string}\" \"$1\" \"${4|break_line,break_two_line|}\""
     ]
+  },
+  "Question Install Resource": {
+    "scope": "shellscript",
+    "prefix": ["INSTALL", "QUESTION"],
+    "body": [
+      "#!/bin/bash",
+      "${1:${TM_FILENAME_BASE/[0-9]+-([a-zA-Z0-9]+)-([a-zA-Z0-9-]+)/${1:/downcase}_${2:/downcase}/}}() {",
+      "  tag_figlet \"Install ${2:${TM_FILENAME_BASE/[0-9]+-install-([a-zA-Z0-9 -]+)/${1:/pascalcase}/}}\"",
+      "  $0",
+      "}",
+      "",
+      "question_tag_no_figlet",
+      "confirm_question \"Deseja instalar $2?\" \\",
+      "  -y \"break_two_line\" \"$1\" \\",
+      "  -n \"break_two_line\""
+    ]
   }
 }

@@ -5,16 +5,17 @@ mkdir -p log
 # path_scripts=$(echo $0 | sed "s|/workstation-install.sh||g ")
 # echo path $path_scripts
 
-for indiceFileA in $path_sh/util/*.sh; do
-  echo "util $indiceFileA"
-  if [ -r $indiceFileA ]; then
+for indiceFileA in "$path_sh"/util/*.sh; do
+  # echo "util $indiceFileA"
+  if [ -r "$indiceFileA" ]; then
+    echo "util $indiceFileA"
     . "$indiceFileA"
   fi
 done
 unset indiceFileA
 
-for indiceFileB in $path_sh/install/*.sh; do
-  if [ -r $indiceFileB ]; then
+for indiceFileB in "$path_sh"/install/*.sh; do
+  if [ -r "$indiceFileB" ]; then
     . "$indiceFileB"
   fi
 done
